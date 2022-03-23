@@ -21,13 +21,25 @@ getUserRepos = (user) => {
     const apiUrl = 'https://api.github.com/users/' + user + '/repos';
     //extra then is due to promise being returned
     fetch(apiUrl).then(function(response) {
-        response.json().then(function(data) {
+        if (response.ok) {
+          response.json().then(function(data) {
             displayRepos(data, user);
-        });
-    });  
+          });
+        } else {
+          alert("Error: GitHub User Not Found");
+        }
+      })
+      //catch handles network errors
+      .catch(function(error) {
+          alert('Unable to connect to Github')
+      })
 };
 
 displayRepos = (repos, searchTerm) => {
+    if(repos.length === 0) {
+        repoContainerEl.textContent = "No repositories found";
+        return;
+    }
     console.log(repos);
     console.log(searchTerm);
     // clear old content-important when working with app displaying user input data
