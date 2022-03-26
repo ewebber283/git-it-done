@@ -51,8 +51,9 @@ displayRepos = (repos, searchTerm) => {
         //format repo name
         const repoName = repos[i].owner.login + '/' + repos[i].name;
         //create container for repo
-        const repoEl = document.createElement('div');
+        const repoEl = document.createElement('a');
         repoEl.classList = "list-item flex-row justify-space-between align-center";
+        repoEl.setAttribute('href', './single-repo.html?repo=' + repoName);
         //create span to hold repo name
         const titleEl = document.createElement('span');
         titleEl.textContent = repoName;
